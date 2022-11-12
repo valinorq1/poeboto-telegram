@@ -1,0 +1,112 @@
+{% extends 'origin/base.html' %} 
+
+{% load static %} 
+
+{% block title %} Личный кабинет {% endblock %} 
+
+{% block content %}
+    <div class="container my-5">
+            {% for message in messages %}
+                <div class="message_success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        <div id="balance">
+            <label class="h3">
+                Баланс : 
+                {{ object.balance }} <i class="fa-solid fa-ruble-sign"></i>
+            </label>
+        </div>
+        <ul class="nav my-5">
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">
+                    <i class="fa-solid fa-microchip"></i>
+                    &nbsp;
+                    Активные
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    &nbsp;
+                    Корзина
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    &nbsp;
+                    История
+                </a>
+            </li>
+        </ul>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"><i class="fa-solid fa-fingerprint"></i></th>
+                    <th scope="col"><i class="fa-solid fa-right-to-bracket"></i>&nbsp;&nbsp;подписок</th>
+                    <th scope="col">👁️&nbsp;просмотры</th>
+                    <th scope="col">🧡&nbsp;реакции</th>
+                    <th scope="col">📢&nbsp;репосты</th>
+                    <th scope="col">💬&nbsp;комментарии</th>
+                    <th scope="col">📢&nbsp;голосования</th>                    
+                    <th class="text-end" scope="col"><i class="fa-solid fa-cash-register"></i>&nbsp;цена</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>11 / 10</td>
+                    <td>1000 / 1000</td>
+                    <td>100 / 120</td>
+                    <td>10 / 20</td>
+                    <td>10 / 20</td>                    
+                    <td>10 / 20</td>                    
+                    <td class="text-end">100&nbsp;<i class="fa-solid fa-ruble-sign"></i></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-end">Всего : <b>4шт.</b></div>
+        {% if tasks %}
+            <div class="list-group">
+                {% for task in tasks %}
+                    <li class="list-group-item">
+                        <div>
+                        <label>Тип: </label>
+                        {{ task.class_name }}
+                        </div>
+                        <div>
+                        <label>Канал: </label>
+                        {{ task.chanel }}
+                        </div>
+                        <div>
+                        <label>Обработано: </label>
+                        {{ task.processed_count }} / {{ task.count }}
+                        <div class="progress">
+                            <div
+                            class="progress-bar"
+                            role="progressbar"
+                            style="width: {{ task.get_processed_percent }}%"
+                            aria-valuenow="{{ task.get_processed_percent }}"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            ></div>
+                        </div>
+                        </div>
+                        <div>
+                        <label>Стоимость: </label>
+                        {{ task.price }}
+                        </div>
+                        <div>
+                        <label>Дата создания: </label>
+                        {{ task.creation_time }}
+                        </div>
+                    </li>
+                {% endfor %}
+            </div>
+        {% endif %} 
+        {% for object in object_list %}
+            {{object}}
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "./core"
+		},
+		{
+			"path": "./service"
+		},
+		{
+			"path": "./users"
+		},
+		{
+			"path": "./api"
+		},
+		{
+			"path": "./templates"
+		},
+		{
+			"path": "./core/static"
+		},
+		{
+			"path": "./templatetags"
+		}
+	],
+	"settings": {}
+}

@@ -1,0 +1,52 @@
+{% extends 'service/create-task.html' %}
+{% load custom_templatetags %}
+
+{% block title %}
+    Заказать накрутку просмотров
+{% endblock title %}
+
+{% block content %}
+    {{block.super}}
+{% endblock content %}
+
+{% block extra_head %}
+    <div>
+        <a href="{% url 'task-create-view' %}" class="btn btn-circle btn-outline-primary mb-3">Разовые</a>
+        <a href="{% url 'task-create-view-sub' %}" class="btn btn-circle btn-outline-primary mb-3">Подписка (автопросмотры)</a>        
+    </div>
+{% endblock extra_head %}
+
+{% block scripts %}
+    {% get_task_price 'view' as price %}
+    {{ price|json_script:'price' }}
+    {% get_task_price 'view_sub' as price_sub %}
+    {{ price_sub|json_script:'price_sub' }}
+
+    <script>
+        const count = document.getElementById('id_count') 
+        const countPosts = document.getElementById('id_count_posts')
+        const durationSub = document.getElementById('id_duration_sub')
+
+        const price = JSON.parse(document.getElementById(durationSub?'price_sub':'price').textContent) 
+        document.getElementById('priceBase').innerText = price
+
+
+        const priceTotal = document.getElementById('priceTotal')
+
+
+
+        const onChange = () => {
+            let c = count?.value ? count?.value : 1
+            let cp = countPosts?.value ? countPosts?.value : 1
+            let ds = durationSub?.value ? durationSub?.value : 1
+
+            priceTotal.innerText = Math.round(c*cp*price*ds*100)/100
+        }
+
+        count?.addEventListener('input',onChange)
+        countPosts?.addEventListener('input',onChange)
+        durationSub?.addEventListener('input',onChange)
+
+        
+    </script>
+{% endblock scripts %}

@@ -1,0 +1,31 @@
+<footer class="bg-dark text-light" style="border-top: 3px solid #eee">
+  <div class="container py-4">
+    <div class="row">
+      <div class="col-md-6 mb-5">
+        <h3>Poeboto</h3>
+        <a>Все права защищены правообладателем</a>
+      </div>
+      <div class="col-md-6 mb-5   text-end">
+        <a>Контакты:</a>
+        &nbsp;
+        <br>
+        <i class="fa-brands fa-telegram"></i>
+        &nbsp;
+        <a href="https://t.me/pianiy_romantic" rel="noopener noreferrer nofollow">
+          @pianiy_romantic
+        </a>
+      </div>
+      <div>
+        <div>
+          <a>Услуги:</a>
+        </div>
+        <a href="{% url 'task-create-view' %}" class="link-primary">Просмотры</a>&nbsp;&nbsp;
+        <a href="{% url 'task-create-subscription' %}" class="link-primary">Подписки</a>&nbsp;&nbsp;
+        <a href="{% url 'task-create-comment' %}" class="link-primary">Комменты</a>&nbsp;&nbsp;
+        <a href="{% url 'task-create-reaction' %}" class="link-primary">Реакции</a>&nbsp;&nbsp;
+        <a href="{% url 'task-create-voting' %}" class="link-primary">Голосования</a>&nbsp;&nbsp;
+        <a href="{% url 'task-create-repost' %}" class="link-primary">Репосты</a>&nbsp;&nbsp;
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,31 @@
+{% extends 'service/create-task.html' %}
+{% load custom_templatetags %}
+
+{% block title %}
+    Заказать накрутку комметариев
+{% endblock title %}
+
+{% block content %}
+    {{block.super}}
+{% endblock content %}
+
+{% block scripts %}
+    {% get_task_price 'comment' as price %}
+    {{ price|json_script:'price' }}
+
+    <script>
+        addEventListener('load',()=>{
+            const comments = document.getElementById('id_comments');
+            const price = JSON.parse(document.getElementById('price').textContent) 
+
+            document.getElementById('priceBase').innerText = price
+    
+            const onChange = () => {
+                c = comments.value.replace(/\r?\n/g, ' /n')
+                priceTotal.innerText = Math.round(((c.match(/\/n/g)||[]).length + 1) * price * 100) / 100
+            }
+    
+            comments.addEventListener('input',onChange)
+        })
+    </script>
+{% endblock scripts %}

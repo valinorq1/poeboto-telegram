@@ -1,0 +1,16 @@
+{% extends 'service/create-task.html' %}
+
+{% block title %}
+    Заказать накрутку репостов
+{% endblock title %}
+
+{% block content %}
+    {{block.super}}
+{% endblock content %}
+
+{% block extra_head %}
+    <div>
+        <a href="{% url 'task-create-repost' %}" class="btn btn-circle btn-outline-primary mb-3">Разовые</a>
+        <a href="{% url 'task-create-repost-sub' %}" class="btn btn-circle btn-outline-primary mb-3">Подписка (авторепосты)</a>        
+    </div>
+{% endblock extra_head %}

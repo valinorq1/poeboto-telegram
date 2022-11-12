@@ -1,0 +1,77 @@
+{% extends 'origin/base.html'%}
+{% load static %}
+
+{% block title %}
+    {{ form.Meta.model.Meta.verbose_name.title }}
+{% endblock title %}
+
+{% block content %}
+    <div style="max-width: 600px; margin: 0 auto">
+
+        <h1 class="my-5 p-3">
+            Оформление задачи
+        </h1>
+        <div>
+            <form method="post" class="card shadow-lg p-3 mb-5">
+                {% csrf_token %}
+                <div class="form">
+                    {% block extra_head %}
+                    {% endblock extra_head %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            {% if field.widget_type == "checkbox" %}
+                                <div class="form-check">
+                                    {{ field }}
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        {{ field.label }}
+                                    </label>
+                                </div>
+                            {% elif field.name == 'duration' %}
+                                <label>
+                                    {{ field.label }}:
+                                </label>
+                                <div class="d-flex" style="gap: .5rem">
+                                    {{ field }}
+                                    <div style="width: 100px">
+                                        {{ form.duration_value }}
+                                    </div>
+                                </div>
+                            {% elif field.name == 'duration_sub' %}
+                                <label>
+                                    {{ field.label }}:
+                                </label>
+                                <div class="d-flex align-items-center" style="gap: .5rem">
+                                    {{ field }}
+                                    <div style="width: 100px">
+                                        дней
+                                    </div>
+                                </div>
+                            {% elif field.name == 'duration_value' %}
+                            {% else %}
+                                <label>
+                                    {{ field.label }}:
+                                </label>
+                                {{ field }}
+                            {% endif %}
+                            {% if field.errors %}
+                                {% for error in field.errors %}
+                                    <div>
+                                        <small class="text-danger">
+                                            {{error}}
+                                        </small>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <div>
+                                <small class="text-muted">{{ field.help_text }}</small>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="text-muted mt-3">Цена за один : <span id="priceBase"> - </span><i class="fa-solid fa-ruble-sign"></i></div>
+                <div class="h4 mb-3 text-end">Итого : <span id="priceTotal"> - </span><i class="fa-solid fa-ruble-sign"></i></div>
+                <div class="pravka"><button type="submit" class="btn btn-primary w-100">Оформить задачу</button></div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

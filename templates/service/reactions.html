@@ -1,0 +1,16 @@
+{% extends 'service/create-task.html' %}
+
+{% block title %}
+    Заказать накрутку реакций
+{% endblock title %}
+
+{% block content %}
+    {{block.super}}
+{% endblock content %}
+
+{% block extra_head %}
+    <div>
+        <a href="{% url 'task-create-reaction' %}" class="btn btn-circle btn-outline-primary mb-3">Разовые</a>
+        <a href="{% url 'task-create-reaction-sub' %}" class="btn btn-circle btn-outline-primary mb-3">Подписка (автореакции)</a>        
+    </div>
+{% endblock extra_head %}

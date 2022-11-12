@@ -1,0 +1,16 @@
+{% extends 'service/create-task.html' %}
+
+{% block title %}
+    Заказать накрутку голосований
+{% endblock title %}
+
+{% block content %}
+    {{block.super}}
+{% endblock content %}
+
+{% block extra_head %}
+    <div class="mb-3">
+        <a href="{% url 'task-create-voting' %}" class="btn btn-circle btn-outline-primary mb-3">Разовые</a>
+        <a href="{% url 'task-create-voting-sub' %}" class="btn btn-circle btn-outline-primary mb-3">Подписка (автоголосование)</a>        
+    </div>
+{% endblock extra_head %}

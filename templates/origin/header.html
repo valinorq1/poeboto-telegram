@@ -1,0 +1,64 @@
+<header class="bg-primary">
+  <nav class="container p-3 navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">POEBOTO</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Заказать накрутку
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'task-create-subscription' %}"><i class="fa-solid fa-right-to-bracket"></i>&nbsp;&nbsp;Подписки</a></li>
+              <li><a class="dropdown-item" href="{% url 'task-create-view' %}">👁️&nbsp;Просмотры</a></li>
+              <li><a class="dropdown-item" href="{% url 'task-create-reaction' %}">🧡&nbsp;Реакции</a></li>
+              <li><a class="dropdown-item" href="{% url 'task-create-comment' %}">📢&nbsp;Комментарии</a></li>
+              <li><a class="dropdown-item" href="{% url 'task-create-voting' %}">💬&nbsp;Голосования</a></li>
+              <li><a class="dropdown-item" href="{% url 'task-create-repost' %}">📢&nbsp;Репосты</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'about' %}">О нас</a>
+          </li>
+        </ul>
+        <div>
+          {% if request.user.is_authenticated %}
+            <div class="dropdown d-inline-block">
+              <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ request.user.balance }}
+                <i class="fa-solid fa-ruble-sign"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <a class="dropdown-item" href="{% url 'account-active' %}">🔥&nbsp;Активные заказы</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'account' %}"><i class="fa-solid fa-clock-rotate-left"></i>&nbsp;История заказов</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Выйти</a>
+                </li>
+              </ul>
+            </div>
+            <a class="btn btn-light position-relative" href="{% url 'account-cart' %}">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
+                2
+                <span class="visually-hidden">cart items</span>
+              </span>
+            </a>
+          {% else %}
+            <a class="btn btn-light" href="{% url 'login' %}">Войти</a>
+            <a class="btn btn-light" href="{% url 'sign-up' %}">Регистрация</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
