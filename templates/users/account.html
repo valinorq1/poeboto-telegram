@@ -6,11 +6,11 @@
 
 {% block content %}
     <div class="container my-5">
-            {% for message in messages %}
-                <div class="message_success">
-                    {{ message }}
-                </div>
-            {% endfor %}
+        {% for message in messages %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
         <div id="balance">
             <label class="h3">
                 Баланс : 

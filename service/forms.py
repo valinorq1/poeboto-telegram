@@ -19,6 +19,7 @@ class SubscriptionsForm(CreateTaskFormMixin):
         )
         labels = {
             'duration':'Продолжительность добавления подписчиков',
+            'count': 'Количество'
         }
 
 

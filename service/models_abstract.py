@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator
 
-
 User = get_user_model()
 
 
@@ -35,10 +34,6 @@ class TaskSubscriptionMixin(models.Model):
     subscription = models.BooleanField('подписка', default=False)
     duration_sub = models.IntegerField('длительность подписки',null=True,blank=True,validators=[MinValueValidator(2,message="Подписка оформляется на минимум 2 дня.")])
     count_posts = models.IntegerField('кол-во публикаций', null=True, validators=[MinValueValidator(1,message='Количетсво публикаций должно быть положительным числом')])
-    @property
-    def duration_sub_remainder(self):
-        # TODO
-        return False
     class Meta:
         abstract = True
 
@@ -88,6 +83,28 @@ class Task(models.Model):
     viewed = models.BooleanField('просмотрен', default=False)
     done = models.BooleanField('обработан', default=False)
     created = models.DateTimeField('время создания', auto_now_add=True)
+
+    def set_price(self):
+        from .models import TaskPrices
+
+        task_prices = TaskPrices.load()
+
+        count = getattr(self,'count',1)
+        count_posts = getattr(self,'count_posts',1)
+        duration_sub = getattr(self,'duration_sub',1)
+
+        has_sub_price = getattr(task_prices,self._name+'_sub',None)
+        price = getattr(
+            task_prices,
+            self._name if duration_sub>1 else self._name+'_sub',
+            None
+        )
+        if getattr(self,'comments',None):
+            print(len(getattr(self,'comments',None).split('\n')))
+
+        price_total = count * count_posts * duration_sub
+        self.price = price
+        return price_total
 
     class Meta:
         abstract = True

@@ -10,6 +10,7 @@ class CreateTaskMixin(SuccessMessageMixin, LoginRequiredMixin, generic.CreateVie
 
     def form_valid(self, form):
         form.instance.customer = self.request.user
+        form.instance.set_price()
         return super().form_valid(form)
 
 class CreateTaskSubMixin(CreateTaskMixin):

@@ -49,6 +49,7 @@ class SubscriptionTask(
     TaskToStartMixin,
     Task
 ):
+    _name = 'subscription'
     customer = task_customer('tasks_subscriptions')
     read_last_posts = models.BooleanField('чтение последних публикаций', default=False)
     gender = models.CharField('предпочтительный пол', default="random", choices=GENDERS, max_length=120)
@@ -64,6 +65,7 @@ class ViewTask(
     TaskToStartMixin,
     Task
 ):
+    _name = 'view'
     customer = task_customer('tasks_views')
     view_as_sub = models.BooleanField('читать подписчиками', default=False)
     spread = models.BooleanField('разброс (5%)', default=False)
@@ -89,6 +91,7 @@ class ReactionsTask(
     TaskDurationMixin,
     Task
 ):
+    _name = 'reaction'
     customer = task_customer('tasks_reactions')
     count_posts = models.IntegerField('количество последних публикаций', null=True, blank=True)
     spread = models.BooleanField('разброс (5%)', default=False)
@@ -104,6 +107,7 @@ class CommentTask(
     TaskSinglePostMixin,
     Task
 ):
+    _name = 'comment'
     customer = task_customer('tasks_comments')
     comments = models.TextField('комментарии (каждый с новой строки)')
     class Meta:
@@ -119,6 +123,7 @@ class VotingTask(
     TaskToStartMixin,
     Task
 ):
+    _name = 'vote'
     customer = task_customer('tasks_voting')
     count_posts = models.IntegerField('количество последних публикаций', null=True, blank=True)
     spread = models.BooleanField('разброс (5%)', default=False)
@@ -134,6 +139,7 @@ class RepostTask(
     TaskSubscriptionMixin,
     Task
 ):
+    _name = 'repost'
     customer = task_customer('tasks_reposts')
     link_post = models.URLField('ссылка на публикацию')    
     class Meta:

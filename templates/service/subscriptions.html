@@ -1,5 +1,7 @@
 {% extends 'service/create-task.html' %}
 
+{% load custom_templatetags %}
+
 {% block title %}
     Заказать накрутку подписок
 {% endblock title %}
@@ -7,3 +9,31 @@
 {% block content %}
     {{block.super}}
 {% endblock content %}
+
+{% block scripts %}
+    {% get_task_price 'subscription' as price %}
+    {{ price|json_script:'price' }}
+
+    <script>
+        addEventListener('load',()=>{
+
+            const count = document.getElementById('id_count') 
+    
+            const price = JSON.parse(document.getElementById('price').textContent) 
+            document.getElementById('priceBase').innerText = price
+    
+    
+            const priceTotal = document.getElementById('priceTotal')
+    
+    
+    
+            const onChange = () => {
+                let c = count?.value ? count?.value : 1
+    
+                priceTotal.innerText = Math.round(c*price*100)/100
+            }
+    
+            count?.addEventListener('input',onChange)
+        })
+    </script>
+{% endblock scripts %}

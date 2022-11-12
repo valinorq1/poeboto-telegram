@@ -23,30 +23,31 @@
     {{ price_sub|json_script:'price_sub' }}
 
     <script>
-        const count = document.getElementById('id_count') 
-        const countPosts = document.getElementById('id_count_posts')
-        const durationSub = document.getElementById('id_duration_sub')
+        addEventListener('load',()=>{
 
-        const price = JSON.parse(document.getElementById(durationSub?'price_sub':'price').textContent) 
-        document.getElementById('priceBase').innerText = price
-
-
-        const priceTotal = document.getElementById('priceTotal')
-
-
-
-        const onChange = () => {
-            let c = count?.value ? count?.value : 1
-            let cp = countPosts?.value ? countPosts?.value : 1
-            let ds = durationSub?.value ? durationSub?.value : 1
-
-            priceTotal.innerText = Math.round(c*cp*price*ds*100)/100
-        }
-
-        count?.addEventListener('input',onChange)
-        countPosts?.addEventListener('input',onChange)
-        durationSub?.addEventListener('input',onChange)
-
-        
+            const count = document.getElementById('id_count') 
+            const countPosts = document.getElementById('id_count_posts')
+            const durationSub = document.getElementById('id_duration_sub')
+    
+            const price = JSON.parse(document.getElementById(durationSub?'price_sub':'price').textContent) 
+            document.getElementById('priceBase').innerText = price
+    
+    
+            const priceTotal = document.getElementById('priceTotal')
+    
+    
+    
+            const onChange = () => {
+                let c = count?.value ? count?.value : 1
+                let cp = countPosts?.value ? countPosts?.value : 1
+                let ds = durationSub?.value ? durationSub?.value : 1
+    
+                priceTotal.innerText = Math.round(c*cp*price*ds*100)/100
+            }
+    
+            count?.addEventListener('input',onChange)
+            countPosts?.addEventListener('input',onChange)
+            durationSub?.addEventListener('input',onChange)
+        })
     </script>
 {% endblock scripts %}

@@ -5,12 +5,40 @@
 
 {% block content %} 
     <div class="row" style="margin-bottom: 50px; margin-top: 50px">
-        <div class="col-md-6 offset-md-3 card shadow-lg p-4" style="max-width:500px; margin: 0 auto">
+        <div class="col-md-6 offset-md-3 card shadow-lg p-4" style="max-width:400px; margin: 0 auto">
             <h3 class="text-center mb-5">Регистрация</h3>
             <form action="" method="post">
                 {% csrf_token %}
-                {{ form }}
-                <input type="submit" class="btn btn-success" value="Зарегистрироваться" />
+                {% for field in form %}
+                    <div class="mb-3">
+                        {% if field.widget_type == "checkbox" %}
+                            <div class="form-check">
+                                {{ field }}
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    {{ field.label }}
+                                </label>
+                            </div>
+                        {% else %}
+                            <label>
+                                {{ field.label }}:
+                            </label>
+                            {{ field }}
+                        {% endif %}
+                        {% if field.errors %}
+                            {% for error in field.errors %}
+                                <div>
+                                    <small class="text-danger">
+                                        {{error}}
+                                    </small>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <div>
+                            <small class="text-muted">{{ field.help_text }}</small>
+                        </div>
+                    </div>
+                {% endfor %}  
+                <input type="submit" class="btn btn-success w-100" value="Зарегистрироваться" />
             </form>
         </div>
     </div>
